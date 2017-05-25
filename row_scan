@@ -1,0 +1,25 @@
+public class Solution{
+  public int maxKilledEnemies(char[][] grid){
+    int m=grid.length, n=grid[0].length;
+    int res=0, rowhits=0;
+    int[] colhits=new int[n];
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+        if(j==0||grid[i][j-1]=='W'){
+          rowhits=0;
+          for(int k=i;k<n&&grid[i][k]!='W';k++){
+            rowhits+=grid[i][k]=='E'?1:0;
+          }
+        }
+        if(i==0||grid[i-1][j]=='W'){
+          colhits[j]=0;
+          for(int k=j;k<m&&grid[k][i]!='W';k++){
+            colhits[j]+=grid[i]=='E'?1:0;
+          }
+        }
+        res=Math.max(res,rowhits+colhits[j]);
+      }
+    }
+    return res;
+  }
+}
